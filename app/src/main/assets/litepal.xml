@@ -1,0 +1,10 @@
+<?xml version="2.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="recipes" />
+    <version value="4" />
+    <list>
+        <mapping class="com.i7gk.recipes.bean.Type" />
+        <mapping class="com.i7gk.recipes.bean.RecipesToStore" />
+        <mapping class="com.i7gk.recipes.bean.SearchHistory" />
+    </list>
+</litepal>

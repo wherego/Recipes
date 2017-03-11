@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="收藏">
+
+        <android.support.v7.preference.Preference
+            android:title="查看收藏"
+            android:key="skim_collection"/>
+
+        <android.support.v7.preference.Preference
+            android:title="清空收藏"
+            android:key="clear_collection"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="基本设置">
+
+        <android.support.v7.preference.Preference
+            android:title="清理缓存"
+            android:key="clear_cache"
+            android:summary="清理缓存不会清除已收藏的菜谱，如需清除请点击上面的“清空收藏”"/>
+
+        <android.support.v7.preference.Preference
+            android:title="清空搜索历史"
+            android:key="clear_search_history" />
+
+        <!--<android.support.v7.preference.Preference-->
+            <!--android:title="清除已读标记"-->
+            <!--android:key="clear_read_history" />-->
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="其他设置">
+
+        <android.support.v7.preference.Preference
+            android:title="清空图片缓存"
+            android:key="clear_image_cache"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+
+</android.support.v7.preference.PreferenceScreen>
