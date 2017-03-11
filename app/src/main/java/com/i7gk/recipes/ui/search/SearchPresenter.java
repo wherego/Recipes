@@ -29,6 +29,7 @@ public class SearchPresenter implements SearchContract.Presenter{
     public void start() {
         searchHistoryList.clear();
         searchHistoryList = DataSupport.order("id desc").find(SearchHistory.class);
+        view.showDataChanged(searchHistoryList);
     }
 
     @Override
