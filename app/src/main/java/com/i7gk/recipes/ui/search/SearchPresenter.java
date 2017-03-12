@@ -61,6 +61,7 @@ public class SearchPresenter implements SearchContract.Presenter{
         view.returnKeyWord(searchHistoryList.get(position).getKeyWord());
     }
 
+    //判断是否全是中文
     private boolean isAllChinese(String string) {
         Pattern pattern = Pattern.compile("[\u4e00-\u9fa5]");
         Matcher matcher = pattern.matcher(string);
