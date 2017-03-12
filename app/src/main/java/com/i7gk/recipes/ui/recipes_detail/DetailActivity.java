@@ -50,7 +50,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private AnimatorSet set;
     private RecipesToStore recipesToStore;
     private IntroductionFragment introductionFragment;
-    StepsFragment stepsFragment;
+    private StepsFragment stepsFragment;
+    private StepsPresenter stepsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         stepsFragment=StepsFragment.newInstance();
         pagerAdapter = new FragmentVPAdapter(getSupportFragmentManager(), this,introductionFragment,stepsFragment);
         new IntroductionPresenter(DetailActivity.this,introductionFragment,recipesToStore);
-        new StepsPresenter(DetailActivity.this,stepsFragment,recipesToStore);
+        stepsPresenter=new StepsPresenter(DetailActivity.this,stepsFragment,recipesToStore);
         viewpager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewpager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -81,6 +82,12 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
             @Override
             public void onClick(View v) {
                 presenter.runCollection(collection, recipesToStore);
+            }
+        });
+        fabStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stepsPresenter.shareAsText();
             }
         });
         showFabAnimation();
@@ -159,6 +166,8 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         set.playTogether(animator1, animator2, animator3);
         set.start();
     }
+
+
 
     @Override
     protected void onDestroy() {

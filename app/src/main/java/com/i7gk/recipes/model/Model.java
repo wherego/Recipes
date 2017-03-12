@@ -133,30 +133,10 @@ public class Model implements Imodel{
             recipes.setRecipe_method(listBean.getRecipe().getMethod());
             recipes.setRecipe_sumary(listBean.getRecipe().getSumary());
             recipes.setRecipe_title(listBean.getRecipe().getTitle());
-//            if (DataSupport.where("menuId=?",listBean.getMenuId()).find(RecipesToStore.class).size()==0){
-//                recipes.save();
-//            }else {
-//                if (DataSupport.where("menuId=?",listBean.getMenuId()).find(RecipesToStore.class).get(0).getIsCollected()==1){
-//                    recipes.setIsCollected(1);
-//                }
-//                if (DataSupport.where("menuId=?",listBean.getMenuId()).find(RecipesToStore.class).get(0).getIsReaded()==1){
-//                    recipes.setIsReaded(1);
-//                }
-//            }
             list.add(recipes);
         }
         return list;
     }
-
-//    @Override
-//    public List<RecipesToStore> getRecipesFromDB(int count) {
-//        return DataSupport.order("id desc").limit(count).find(RecipesToStore.class);
-//    }
-
-//    @Override
-//    public List<RecipesToStore> getAllRecipesFromDB() {
-//        return DataSupport.findAll(RecipesToStore.class);
-//    }
 
     @Override
     public List<RecipesToStore> getCollection() {

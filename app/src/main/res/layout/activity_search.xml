@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="15dp"
     android:paddingTop="15dp"
-    android:background="#DDDDDD">
+    android:background="#ffffff">
 
     <LinearLayout
         android:id="@+id/search_box"
@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_search_white_36dp"/>
+                android:src="@drawable/ic_search_grey_600_24dp"/>
 
             <EditText
                 android:id="@+id/search_text"

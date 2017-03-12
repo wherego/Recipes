@@ -1,6 +1,7 @@
 package com.i7gk.recipes.ui.recipes_detail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.ImageView;
 
 import com.i7gk.recipes.R;
@@ -59,4 +60,5 @@ public class DetailPresenter implements DetailContract.Presenter{
         view.setToolbarTitle(name);
         view.setRecipeImage(recipe_image);
     }
+
 }

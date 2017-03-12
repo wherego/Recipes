@@ -56,4 +56,20 @@ public class StepsPresenter implements StepsContract.Presenter{
             context.startActivity(intent);
         }
     }
+
+    @Override
+    public void shareAsText() {
+        try {
+            Intent shareIntent = new Intent().setAction(Intent.ACTION_SEND).setType("text/plain");
+            StringBuilder shareText=new StringBuilder();
+            shareText.append(recipesToStore.getRecipe_title()+":\n");
+            for (Steps steps:stepsList){
+                shareText.append(steps.getStep()+"\n");
+            }
+            shareIntent.putExtra(Intent.EXTRA_TEXT,shareText.toString());
+            context.startActivity(Intent.createChooser(shareIntent,"分享到"));
+        } catch (android.content.ActivityNotFoundException ex){
+            view.showShareError();
+        }
+    }
 }

@@ -13,9 +13,11 @@ import java.util.List;
 public interface StepsContract {
     interface View extends BaseView<Presenter>{
         void setSteps(List<Steps> stepsList);
+        void showShareError();
     }
     interface Presenter extends BasePresenter{
         void initData();
         void showImage(int position);
+        void shareAsText();
     }
 }
