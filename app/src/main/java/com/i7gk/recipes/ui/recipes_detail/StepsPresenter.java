@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.i7gk.recipes.bean.RecipesToStore;
 import com.i7gk.recipes.bean.Steps;
-import com.i7gk.recipes.ui.ImageActivity;
+import com.i7gk.recipes.ui.image.ImageActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,8 @@ public class StepsPresenter implements StepsContract.Presenter{
     private Context context;
     private StepsContract.View view;
     private RecipesToStore recipesToStore;
-    private List<Steps> stepsList=new ArrayList<Steps>();
+    private List<Steps> stepsList=new ArrayList<>();
+    private ArrayList<String> list=new ArrayList<>();
 
     public StepsPresenter(Context context, StepsContract.View view, RecipesToStore recipesToStore){
         this.context=context;
@@ -41,6 +42,11 @@ public class StepsPresenter implements StepsContract.Presenter{
             stepsList = getListStepsByGson(recipe_method);
             view.setSteps(stepsList);
         }
+        for (Steps steps:stepsList){
+            if (steps.getImg()!=null&&!steps.getImg().equals("")){
+                list.add(steps.getImg());
+            }
+        }
     }
 
     private List<Steps> getListStepsByGson(String jsonString) {
@@ -52,7 +58,9 @@ public class StepsPresenter implements StepsContract.Presenter{
     public void showImage(int position) {
         if (stepsList.get(position).getImg() != null && !stepsList.get(position).getImg().equals("")) {
             Intent intent = new Intent(context,ImageActivity.class);
-            intent.putExtra("image_address", stepsList.get(position).getImg());
+            int imagePosition=list.indexOf(stepsList.get(position).getImg());
+            intent.putExtra("imagePosition",imagePosition);
+            intent.putStringArrayListExtra("imageAddressList",list);
             context.startActivity(intent);
         }
     }
