@@ -56,9 +56,8 @@ public class Model implements Imodel{
                     public List<RecipesToStore> call(SearchKeyWord searchKeyWord) {
                         if (searchKeyWord.getMsg().equals("success")){
                             return transFormAnd(searchKeyWord);
-                        }else{
-                            return null;
                         }
+                        return null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -96,9 +95,8 @@ public class Model implements Imodel{
                     public List<RecipesToStore> call(SearchKeyWord searchKeyWord) {
                         if (searchKeyWord.getMsg().equals("success")){
                             return transFormAnd(searchKeyWord);
-                        }else{
-                            return null;
                         }
+                        return null;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,6 +108,7 @@ public class Model implements Imodel{
 
                     @Override
                     public void onError(Throwable e) {
+                        presenter.showList(null);
                         presenter.getDataFailed();
                     }
 
@@ -121,7 +120,7 @@ public class Model implements Imodel{
     }
 
     private List<RecipesToStore> transFormAnd(SearchKeyWord searchKeyWord) {
-        List<RecipesToStore> list=new ArrayList<RecipesToStore>();
+        List<RecipesToStore> list=new ArrayList<>();
         for (SearchKeyWord.ResultBean.ListBean listBean:searchKeyWord.getResult().getList()){
             RecipesToStore recipes=new RecipesToStore();
             recipes.setCtgTitles(listBean.getCtgTitles());
@@ -143,10 +142,10 @@ public class Model implements Imodel{
         return DataSupport.order("id desc").find(RecipesToStore.class);
     }
 
-    public static OkHttpClient client(){
+    private static OkHttpClient client(){
         File cacheFile=new File(App.getContext().getCacheDir(),"response");
         Cache cache=new Cache(cacheFile,1024*1024*10);
-        OkHttpClient httpClient=new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 //防止频繁访问服务器相同的内容，间隔20s
                 .addNetworkInterceptor(new Interceptor() {
                     @Override
@@ -192,6 +191,5 @@ public class Model implements Imodel{
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .cache(cache)
                 .build();
-        return httpClient;
     }
 }

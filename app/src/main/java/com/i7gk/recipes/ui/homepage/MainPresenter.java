@@ -26,9 +26,9 @@ public class MainPresenter implements MainContract.Presenter{
     private String cid=null;
     public static boolean NoMoreData=false;
     private String title;
-    private List<RecipesToStore> mRecipesList=new ArrayList<RecipesToStore>();
+    private List<RecipesToStore> mRecipesList=new ArrayList<>();
     private int page=1;
-    public static final int MIN_CLICK_DELAY_TIME = 10000;
+    private static final int MIN_CLICK_DELAY_TIME = 10000;
     private long lastClickTime = 0;
 
     public MainPresenter(Context context,MainContract.View view){
@@ -51,7 +51,7 @@ public class MainPresenter implements MainContract.Presenter{
             keyWord=null;
             page=1;
         }
-        if (this.cid!=cid){
+        if (this.cid==null || !this.cid.equals(cid)){
             this.cid=cid;
             page=1;
         }
@@ -65,7 +65,7 @@ public class MainPresenter implements MainContract.Presenter{
         NoMoreData=false;
         if (keyWord==null||keyWord.equals("")){
             view.setTitle("菜谱大全");
-        }else if (this.keyWord!=keyWord){
+        }else if (!this.keyWord.equals(keyWord)){
             view.setTitle(keyWord);
             this.keyWord=keyWord;
             page=1;
@@ -107,24 +107,25 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void showList(List<RecipesToStore> list) {
-        if (page==1 && list.size()>0){
-            mRecipesList.clear();
-            System.gc();
-        }
-        mRecipesList.addAll(list);
-        if (list.size()==20){
-            page+=1;
-        }else {
-            NoMoreData=true;
-        }
-        if (list==null){
-            view.showNoDataOnServer();
-        }else if (list.size()>0){
-            view.showChangedData(mRecipesList);
-            if (page==2 && mRecipesList.size()==20){
+        if (list!=null){
+            if (page==1 && list.size()>0){
+                mRecipesList.clear();
+                System.gc();
+            }
+            mRecipesList.addAll(list);
+//            view.showChangedData(mRecipesList);
+            if (page==1){
                 view.scrollToTop();
             }
+            if (list.size()==20){
+                page+=1;
+            }else {
+                NoMoreData=true;
+            }
+        }else if (NetworkState.networkConnected(context)){
+            view.showNoDataOnServer();
         }
+        view.showChangedData(mRecipesList);
         Glide.get(context).clearMemory();
     }
 
@@ -137,7 +138,7 @@ public class MainPresenter implements MainContract.Presenter{
             }
         }else if (cid!=null){
             getData(cid,title);
-        }else if (cid==null){
+        }else{
             getData(keyWord);
         }
     }

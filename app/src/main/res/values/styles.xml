@@ -24,4 +24,8 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollbarFadeDuration">1</item>
     </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>
