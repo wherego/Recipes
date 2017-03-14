@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.i7gk.recipes.bean.RecipesToStore;
 import com.i7gk.recipes.bean.Steps;
-import com.i7gk.recipes.ui.image.ImageActivity;
+import com.i7gk.recipes.ui.ImageActivity;
 
 import java.util.ArrayList;
 import java.util.List;

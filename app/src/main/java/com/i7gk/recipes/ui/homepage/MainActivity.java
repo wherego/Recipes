@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private LinearLayoutManager mLayoutManager;
     private RecipesAdapter adapter;
     private int lastVisibleItem;
-    //    private int maxVisibleItem=0;
     private boolean isAnimFinished = true;
     private float curY;
 
@@ -186,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void showAllCollectionFinished() {
-        Toast.makeText(MainActivity.this, "已加载全部收藏", Toast.LENGTH_SHORT);
+        Toast.makeText(MainActivity.this, "已加载全部收藏", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -242,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    presenter.getData(data.getStringExtra("keyWord"));
+                    presenter.handleReturnKeyword(data.getStringExtra("keyWord"));
                 }
                 break;
             case 2:

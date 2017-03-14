@@ -25,7 +25,6 @@ public class MainPresenter implements MainContract.Presenter{
     private String keyWord=null;
     private String cid=null;
     public static boolean NoMoreData=false;
-    private String title;
     private List<RecipesToStore> mRecipesList=new ArrayList<>();
     private int page=1;
     private static final int MIN_CLICK_DELAY_TIME = 10000;
@@ -38,7 +37,7 @@ public class MainPresenter implements MainContract.Presenter{
     }
     @Override
     public void start() {
-        getData(keyWord);
+        imodel.getRecipesByKeyWord(keyWord,page);
     }
 
     @Override
@@ -46,7 +45,6 @@ public class MainPresenter implements MainContract.Presenter{
         noticeNetState();
         NoMoreData=false;
         view.setTitle(title);
-        this.title=title;
         if (keyWord!=null){
             keyWord=null;
             page=1;
@@ -63,17 +61,15 @@ public class MainPresenter implements MainContract.Presenter{
     public void getData(String keyWord) {
         noticeNetState();
         NoMoreData=false;
-        if (keyWord==null||keyWord.equals("")){
-            view.setTitle("菜谱大全");
-        }else if (!this.keyWord.equals(keyWord)){
-            view.setTitle(keyWord);
-            this.keyWord=keyWord;
-            page=1;
-        }
+        view.setTitle(keyWord);
         if (cid!=null){
             cid=null;
             page=1;
         }
+        if (this.keyWord==null||!this.keyWord.equals(keyWord)){
+            page=1;
+        }
+        this.keyWord=keyWord;
         imodel.getRecipesByKeyWord(keyWord,page);
     }
 
@@ -113,7 +109,6 @@ public class MainPresenter implements MainContract.Presenter{
                 System.gc();
             }
             mRecipesList.addAll(list);
-//            view.showChangedData(mRecipesList);
             if (page==1){
                 view.scrollToTop();
             }
@@ -137,9 +132,9 @@ public class MainPresenter implements MainContract.Presenter{
                 lastClickTime=Calendar.getInstance().getTimeInMillis();
             }
         }else if (cid!=null){
-            getData(cid,title);
+            imodel.getRecipesByCid(cid,page);
         }else{
-            getData(keyWord);
+            imodel.getRecipesByKeyWord(keyWord,page);
         }
     }
 
@@ -147,10 +142,17 @@ public class MainPresenter implements MainContract.Presenter{
     public void reFresh() {
         page=1;
         if (cid!=null){
-            getData(cid,title);
+            imodel.getRecipesByCid(cid,page);
         }else if (keyWord!=null && keyWord.equals("全部收藏")){
             showCollection();
         }else {
+            imodel.getRecipesByKeyWord(keyWord,page);
+        }
+    }
+
+    @Override
+    public void handleReturnKeyword(String keyWord) {
+        if (this.keyWord==null||!this.keyWord.equals(keyWord)){
             getData(keyWord);
         }
     }

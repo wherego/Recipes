@@ -31,5 +31,6 @@ public interface MainContract {
         void showList(List<RecipesToStore> list);
         void loadMore();
         void reFresh();
+        void handleReturnKeyword(String keyword);
     }
 }

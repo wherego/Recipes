@@ -1,4 +1,4 @@
-package com.i7gk.recipes.ui.image;
+package com.i7gk.recipes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

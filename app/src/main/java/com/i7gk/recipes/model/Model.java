@@ -108,7 +108,6 @@ public class Model implements Imodel{
 
                     @Override
                     public void onError(Throwable e) {
-                        presenter.showList(null);
                         presenter.getDataFailed();
                     }
 
@@ -127,11 +126,13 @@ public class Model implements Imodel{
             recipes.setMenuId(listBean.getMenuId());
             recipes.setName(listBean.getName());
             recipes.setThumbnail(listBean.getThumbnail());
-            recipes.setRecipe_img(listBean.getRecipe().getImg());
-            recipes.setRecipe_ingredients(listBean.getRecipe().getIngredients());
-            recipes.setRecipe_method(listBean.getRecipe().getMethod());
-            recipes.setRecipe_sumary(listBean.getRecipe().getSumary());
-            recipes.setRecipe_title(listBean.getRecipe().getTitle());
+            if (listBean.getRecipe()!=null){
+                recipes.setRecipe_img(listBean.getRecipe().getImg());
+                recipes.setRecipe_ingredients(listBean.getRecipe().getIngredients());
+                recipes.setRecipe_method(listBean.getRecipe().getMethod());
+                recipes.setRecipe_sumary(listBean.getRecipe().getSumary());
+                recipes.setRecipe_title(listBean.getRecipe().getTitle());
+            }
             list.add(recipes);
         }
         return list;
